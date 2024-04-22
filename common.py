@@ -115,7 +115,7 @@ def read_audio(conf, pathname, trim_long_data):
     return y
 
 def audio_to_melspectrogram(conf, audio):
-    spectrogram = librosa.feature.melspectrogram(audio, 
+    spectrogram = librosa.feature.melspectrogram(y=audio, 
                                                  sr=conf.sampling_rate,
                                                  n_mels=conf.n_mels,
                                                  hop_length=conf.hop_length,

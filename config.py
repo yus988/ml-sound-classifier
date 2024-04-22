@@ -14,7 +14,7 @@ conf.hop_length = 347 # to make time steps 128
 conf.fmin = 20
 conf.fmax = conf.sampling_rate // 2
 conf.n_mels = 128
-conf.n_fft = conf.n_mels * 20
+conf.n_fft = conf.rt_process_count * 20
 conf.model = 'mobilenetv2' # 'alexnet'
 
 # Labels

@@ -38,6 +38,7 @@ def on_predicted(ensembled_pred):
 
 raw_audio_buffer = []
 pred_queue = deque(maxlen=conf.pred_ensembles)
+
 def main_process(model, on_predicted):
     # Pool audio data
     global raw_audio_buffer
@@ -46,8 +47,14 @@ def main_process(model, on_predicted):
         if len(raw_audio_buffer) >= conf.mels_convert_samples: break
     if len(raw_audio_buffer) < conf.mels_convert_samples: return
     # Convert to log mel-spectrogram
+
+    ################ 予測用の配列抽出部分 #######################
+    # きちんとオーバーラップは考慮されている。
+    # 0:44100+4410 をメルスペクトログラムに変換
     audio_to_convert = np.array(raw_audio_buffer[:conf.mels_convert_samples]) / 32767
+    # 0:4410 を捨てる
     raw_audio_buffer = raw_audio_buffer[conf.mels_onestep_samples:]
+    ###########################################################
     mels = audio_to_melspectrogram(conf, audio_to_convert)
     # Predict, ensemble
     X = []
